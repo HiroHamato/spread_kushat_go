@@ -1,0 +1,26 @@
+# Go
+bin/
+*.exe
+*.test
+*.out
+coverage.out
+
+# Modules
+go.work
+go.work.sum
+
+# Env
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
+
+# Docker
+postgres-data/
+redis-data/
