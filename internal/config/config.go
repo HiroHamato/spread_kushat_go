@@ -62,7 +62,7 @@ func Load() Config {
 		RefreshMS:               envPositiveInt("REFRESH_MS", 1000),
 		ProviderTimeoutMS:       envPositiveInt("PROVIDER_TIMEOUT_MS", 4500),
 		ProviderExchangeTimeout: envPositiveInt("PROVIDER_EXCHANGE_TIMEOUT_MS", 9000),
-		TGMenuRefreshMS:         maxInt(1000, envPositiveInt("TG_MENU_REFRESH_MS", 5000)),
+		TGMenuRefreshMS:         maxInt(1000, envPositiveInt("TG_MENU_REFRESH_MS", 1000)),
 		UseMockFallback:         envBool("USE_MOCK_FALLBACK", true),
 		DexMaxTokens:            envPositiveInt("DEXSCREENER_MAX_TOKENS", 30),
 		MaxFundingSymbols:       envPositiveInt("MAX_FUNDING_SYMBOLS_PER_EXCHANGE", 80),

@@ -575,52 +575,52 @@ func (p *Poller) applyCallback(chatID string, s *runtimeSession, data string) {
 	case "ui:main":
 		s.UIScreen = "main"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	case "ui:tracked":
 		s.UIScreen = "tracked"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	case "ui:filters":
 		s.UIScreen = "filters"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	case "ui:alerts":
 		s.UIScreen = "alerts"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	case "ui:filters:mode":
 		s.UIScreen = "filters-mode"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	case "ui:filters:net":
 		s.UIScreen = "filters-net"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	case "ui:filters:vol":
 		s.UIScreen = "filters-vol"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	case "ui:alerts:target":
 		s.UIScreen = "alerts-target"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	case "ui:alerts:spike-vol":
 		s.UIScreen = "alerts-spike-vol"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	case "ui:alerts:spike-mode":
 		s.UIScreen = "alerts-spike-mode"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 
@@ -628,7 +628,7 @@ func (p *Poller) applyCallback(chatID string, s *runtimeSession, data string) {
 		delta, _ := strconv.Atoi(strings.TrimSpace(strings.TrimPrefix(data, "pg:")))
 		s.Page += delta
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 
@@ -646,7 +646,7 @@ func (p *Poller) applyCallback(chatID string, s *runtimeSession, data string) {
 			s.UIScreen = "filters-mode"
 		}
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 
@@ -658,7 +658,7 @@ func (p *Poller) applyCallback(chatID string, s *runtimeSession, data string) {
 			s.UIScreen = "main"
 		}
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 
@@ -670,14 +670,14 @@ func (p *Poller) applyCallback(chatID string, s *runtimeSession, data string) {
 			s.UIScreen = "main"
 		}
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 
 	if data == "al:toggle" {
 		s.AlertEnabled = !s.AlertEnabled
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 
@@ -688,7 +688,7 @@ func (p *Poller) applyCallback(chatID string, s *runtimeSession, data string) {
 			s.UIScreen = "main"
 		}
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 
@@ -699,7 +699,7 @@ func (p *Poller) applyCallback(chatID string, s *runtimeSession, data string) {
 			s.UIScreen = "alerts-spike-vol"
 		}
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 
@@ -716,14 +716,14 @@ func (p *Poller) applyCallback(chatID string, s *runtimeSession, data string) {
 			s.UIScreen = "alerts-spike-mode"
 		}
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 	if strings.HasPrefix(data, "trk:add:") {
 		s.mu.Unlock()
 		p.addTrackedFromRow(chatID, s, strings.TrimPrefix(data, "trk:add:"))
 		p.setMainScreen(s)
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 	if strings.HasPrefix(data, "trk:rm:") {
@@ -732,7 +732,7 @@ func (p *Poller) applyCallback(chatID string, s *runtimeSession, data string) {
 		s.mu.Lock()
 		s.UIScreen = "tracked"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 	if data == "trk:clear" {
@@ -741,7 +741,7 @@ func (p *Poller) applyCallback(chatID string, s *runtimeSession, data string) {
 		}
 		s.UIScreen = "tracked"
 		s.mu.Unlock()
-		p.persistSession(context.Background(), s)
+		go p.persistSession(context.Background(), s)
 		return
 	}
 	s.mu.Unlock()
