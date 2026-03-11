@@ -1,8 +1,8 @@
 module spread_kushat_pora_golang
 
-go 1.23.0
+go 1.25.0
 
-toolchain go1.24.6
+toolchain go1.25.7
 
 require (
 	github.com/jackc/pgx/v5 v5.7.6
